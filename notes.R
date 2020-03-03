@@ -6,9 +6,19 @@ http://www.sumsar.net/blog/2015/07/easy-bayesian-bootstrap-in-r/
 
 library(gtools)
 
-x <- cars$dist #distribution
+x <- cars$dist #sample distribution - length = 50
 n <- 100 #resample size
 bb <- rdirichlet(n, rep(1, length(x)))
+#this matrix is like this:
+1,1    1,2    1,3     1,4   1,50    
+2,1     .      .      .     2,50
+3,1     .      .      .     3,50
+.       .      .      .     .
+.       .      .      .     .
+99,1                        99,50
+100,1 100,2   100,3         100,50
+
+
 dist <- apply(bb, 1, weighted.mean, x = x)
 
 #the above is the same as below:
